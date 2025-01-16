@@ -3,9 +3,10 @@ using DataBase;
 namespace Model;
 
 public class Turma : DataBaseObject{
+    public int Id {get; set;}
     public string Nome { get; set;}
-    public List<string> Materias {get; set;}
-    public List<string> Alunos {get; set;}
+    public List<string> Materias {get; set;} = new List<string>();
+    public List<string> Alunos {get; set;} = new List<string>();
 
     protected override void LoadFrom(string[] data)
     {

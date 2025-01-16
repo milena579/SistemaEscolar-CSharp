@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "Database/1.0.0": {
+      "DataBase/1.0.0": {
         "runtime": {
-          "Database.dll": {}
+          "DataBase.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Database/1.0.0": {
+    "DataBase/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

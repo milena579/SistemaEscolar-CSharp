@@ -16,9 +16,9 @@
       },
       "DataBase/1.0.0": {
         "runtime": {
-          "Database.dll": {
+          "DataBase.dll": {
             "assemblyVersion": "1.0.0",
-            "fileVersion": ""
+            "fileVersion": "1.0.0.0"
           }
         }
       },

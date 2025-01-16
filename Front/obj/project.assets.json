@@ -2,21 +2,21 @@
   "version": 3,
   "targets": {
     "net9.0": {
-      "Database/1.0.0": {
+      "DataBase/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "compile": {
-          "bin/placeholder/Database.dll": {}
+          "bin/placeholder/DataBase.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Database.dll": {}
+          "bin/placeholder/DataBase.dll": {}
         }
       },
       "Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
-          "Database": "1.0.0"
+          "DataBase": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Model.dll": {}
@@ -28,10 +28,10 @@
     }
   },
   "libraries": {
-    "Database/1.0.0": {
+    "DataBase/1.0.0": {
       "type": "project",
-      "path": "../DataBase/Database.csproj",
-      "msbuildProject": "../DataBase/Database.csproj"
+      "path": "../DataBase/DataBase.csproj",
+      "msbuildProject": "../DataBase/DataBase.csproj"
     },
     "Model/1.0.0": {
       "type": "project",

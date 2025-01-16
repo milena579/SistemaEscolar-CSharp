@@ -11,5 +11,14 @@ public class AlunoFakeRepository : IRepository<Aluno>
     public List<Aluno> All => alunos;
 
     public void Add(Aluno obj) => this.alunos.Add(obj);
-    
+
+    public string findByID(int findByID)
+    {
+        for(int i = 0; i < alunos.Count; i++){
+            if(findByID == alunos[i].Id ){
+                return alunos[i].Nome;
+            }
+        }   
+        return null;
+    }
 }

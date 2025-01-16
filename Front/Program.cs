@@ -1,24 +1,27 @@
 ﻿using static System.Console;
 using Model;
 using Model.Repository;
+using System.ComponentModel.Design;
 
 IRepository<Aluno> alunoRepo = null;
 IRepository<Professor> profRepo = null;
 IRepository<Disciplina> discRepo = null;
 IRepository<Turma> turmaRepo = null;
 
-alunoRepo =  new AlunoFakeRepository();
+alunoRepo =  new AlunoRepository();
 profRepo =  new ProfessorFakeRepository();
 discRepo =  new DisciplinaFakeRepository();
 turmaRepo =  new TurmaFakeRepository();
 
+
+List<Turma> turmas = new List<Turma>();
 
 static void verProfs(IRepository<Professor> profRepo)
 {
     var profs =  profRepo.All;
     foreach (var prof in profs){
         WriteLine($"""
-        {prof.Id} - {prof.Formacao} -  {prof.Nome}
+        ID: {prof.Id} - Nome: {prof.Nome} - Formação: {prof.Formacao} 
         -------------------------------
     """);
     }
@@ -29,7 +32,7 @@ static void verAlunos(IRepository<Aluno> alunoRepo)
     var alunos =  alunoRepo.All;
     foreach (var alu in alunos){
         WriteLine($"""
-        {alu.Nome} -  {alu.Idade}
+        ID: {alu.Id} - Nome: {alu.Nome} -  Idade: {alu.Idade}
         -------------------------------
     """);
     }
@@ -38,11 +41,61 @@ static void verAlunos(IRepository<Aluno> alunoRepo)
 static void verMaterias(IRepository<Disciplina> discRepo)
 {
     var materias =  discRepo.All;
+    // materias.Count();
     foreach (var materia in materias){
         WriteLine($"""
-        {materia.Id} - {materia.Nome}
+        ID: {materia.Id} - {materia.Nome}
         -------------------------------
     """);
+    }
+}
+
+static void verTurmas(List<Turma> turmas, IRepository<Disciplina> discRepo, IRepository<Aluno> alunoRepo ){
+    if(turmas.Count == 0){
+        Write("Não há nenhuma turma criada ainda!");
+    }
+    else{
+        WriteLine("Turmas Existentes");
+
+        for(int i = 0; i < turmas.Count; i++){
+            WriteLine("ID - " + (i+1) + " - " + turmas[i].Nome);
+        }
+
+        WriteLine("Digite o ID da turma que deseja acessar, caso queira sair pressione 0: ");
+
+        int tecla = int.Parse(ReadLine()) - 1;
+
+        if(tecla == -1){
+            
+        }
+
+        if(tecla >= 0 && tecla < turmas.Count){
+            verTurma(tecla, turmas, discRepo, alunoRepo);
+        } else{
+            WriteLine("Opcao inválida!");
+            verTurmas(turmas, discRepo, alunoRepo);
+        }
+    }
+}
+
+static void verTurma(int turma, List<Turma> turmas, IRepository<Disciplina> discRepo, IRepository<Aluno> alunoRepo ){
+
+    Turma turmaEscolhida =  turmas[turma];
+
+    WriteLine("Nome da turma: " + turmaEscolhida.Nome);
+
+    WriteLine("Materias:");
+    foreach(var materiaa in turmaEscolhida.Materias){
+        WriteLine(materiaa);
+        string materia =  discRepo.findByID(int.Parse(materiaa));
+        WriteLine(materia);
+    }
+
+    WriteLine("Alunos:");
+    foreach(var alunoo in turmaEscolhida.Alunos){
+        WriteLine(alunoo);
+        string aluno =  alunoRepo.findByID(int.Parse(alunoo));
+        WriteLine(aluno);
     }
 }
 
@@ -72,11 +125,12 @@ static int tamProf(IRepository<Professor> profRepo){
     }
     return tamanho;
 }
-
+       
 while (true){
     try
     {
         Clear();
+        
         WriteLine(""" 
         1 - Cadastrar Professor
         2 - Cadastar Aluno
@@ -88,6 +142,7 @@ while (true){
         8 - Ver Turmas
         """);
 
+        WriteLine("Escolha uma opção: ");
         int option = int.Parse(ReadLine());
 
         switch (option){
@@ -104,6 +159,7 @@ while (true){
 
                 profRepo.Add(professor);
 
+                WriteLine("Professor cadastrado com sucesso!");
                 break;
             case 2:
                 Aluno aluno =  new();
@@ -118,6 +174,7 @@ while (true){
 
                 alunoRepo.Add(aluno);
 
+                WriteLine("Aluno cadastrado com sucesso!");
                 break;
 
             case 3:
@@ -134,37 +191,62 @@ while (true){
 
                 discRepo.Add(materia);
 
+                WriteLine("Materia cadastrada com sucesso!");
                 break;
             case 4:
                 Turma turma =  new();
 
-
                 WriteLine("Insira o nome da turma: ");
                 turma.Nome =  ReadLine();
-
+                
                 verMaterias(discRepo);
+
                 WriteLine("Insira o id da(s) materia(s) separadas por VÍRGULAS: ");
+                string entradaMaterias = Console.ReadLine();
 
-                string entradaMaterias =  Console.ReadLine();
-                var materias =  entradaMaterias.Split(',').Select(m => m.Trim()).ToList();
-                turma.Materias.AddRange(materias);
+                if (!string.IsNullOrWhiteSpace(entradaMaterias)) {
+                    var materias = entradaMaterias.Split(',').Select(m => m.Trim()).ToList();
+                    turma.Materias.AddRange(materias);
+                } else {
+                    WriteLine("Nenhuma matéria inserida.");
+                }
 
-                string entardaAlunos =  Console.ReadLine();
-                var alunos =  entardaAlunos.Split(',').Select(m => m.Trim()).ToList();
-                turma.Alunos.AddRange(alunos);
+                verAlunos(alunoRepo);
 
+                WriteLine("Insira o nome dos alunos separados por VÍRGULAS: ");
+                string entradaAlunos = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(entradaAlunos)) {
+                    var alunos = entradaAlunos.Split(',').Select(m => m.Trim()).ToList();
+                    turma.Alunos.AddRange(alunos);
+                } else {
+                    WriteLine("Nenhum aluno inserido.");
+                }
 
                 turmaRepo.Add(turma);
+                turmas.Add(turma);
+
+                WriteLine("Truma cadastrada com sucesso!");
 
                 break;
 
             case 5: 
+                WriteLine("-----PROFESSORES-----");
                 verProfs(profRepo);
                 var profs =  profRepo.All;
                 break;
             
             case 6:
+               WriteLine("-----ALUNOS-----");
                verAlunos(alunoRepo);
+                break;
+            case 7:
+                WriteLine("-----MATERIAS-----");
+                verMaterias(discRepo);
+                break;
+            case 8:
+                WriteLine("-----TURMAS-----");
+                verTurmas(turmas, discRepo, alunoRepo);
                 break;
             default:
                 break;

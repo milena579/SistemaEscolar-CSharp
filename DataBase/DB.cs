@@ -84,7 +84,7 @@ public class DB<T> where T : DataBaseObject, new() {
                     var obj =  new T();
 
                     var data =  line.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                    obj.LoadForm(data);
+                    obj.LoadFrom(data);
                     all.Add(obj);
                 
                 }
@@ -100,7 +100,7 @@ public class DB<T> where T : DataBaseObject, new() {
     public void Save (List<T> all){
         List<string> lines = new ();
 
-        for(int i =0; i < all.Count; i++){
+        for(int i = 0; i < all.Count; i++){
             var data =  all[i].SaveTo();
             string line =  string.Empty;
 
