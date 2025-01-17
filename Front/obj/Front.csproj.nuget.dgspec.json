@@ -4,12 +4,12 @@
     "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\Front\\Front.csproj": {}
   },
   "projects": {
-    "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\DataBase.csproj": {
+    "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\DataBase.csproj",
-        "projectName": "DataBase",
-        "projectPath": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\DataBase.csproj",
+        "projectUniqueName": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\Database.csproj",
+        "projectName": "Database",
+        "projectPath": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\Database.csproj",
         "packagesPath": "C:\\Users\\disrct\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\obj\\",
         "projectStyle": "PackageReference",
@@ -148,8 +148,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\DataBase.csproj": {
-                "projectPath": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\DataBase.csproj"
+              "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\Database.csproj": {
+                "projectPath": "C:\\Users\\disrct\\Desktop\\SistemaEscolar-CSharp\\DataBase\\Database.csproj"
               }
             }
           }
