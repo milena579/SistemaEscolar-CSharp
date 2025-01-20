@@ -1,4 +1,5 @@
 
+using System.Data;
 using DataBase;
 
 public class Professor : DataBaseObject
@@ -14,10 +15,20 @@ public class Professor : DataBaseObject
         this.Formacao = data[2];
     }
 
+    protected override void LoadFromSqlRow(DataRow data)
+    {
+        throw new NotImplementedException();
+    }
+
     protected override string[] SaveTo() => new string[]
     {
         this.Id.ToString(),
         this.Nome,
         this.Formacao
     };
+
+    protected override string SaveToSql()
+    {
+        throw new NotImplementedException();
+    }
 }

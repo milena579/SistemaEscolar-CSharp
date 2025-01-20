@@ -1,3 +1,4 @@
+using System.Data;
 using DataBase;
 
 namespace Model;
@@ -15,10 +16,20 @@ public class Turma : DataBaseObject{
         this.Alunos = data[2].Split(",").ToList();
     }
 
+    protected override void LoadFromSqlRow(DataRow data)
+    {
+        throw new NotImplementedException();
+    }
+
     protected override string[] SaveTo() => new string[]
     {
         this.Nome,
         string.Join(",", Materias),
         string.Join(",", Alunos)
     };
+
+    protected override string SaveToSql()
+    {
+        throw new NotImplementedException();
+    }
 }
